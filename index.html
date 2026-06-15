@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processo Integração — Meta Ads | Nativa Digital</title>
+    <meta name="description" content="Processo de integração de acesso ao Meta Business Manager — Nativa Digital">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="particles-canvas"></canvas>
+    <div class="orb orb--1"></div>
+    <div class="orb orb--2"></div>
+    <div class="orb orb--3"></div>
+
+    <!-- Toast -->
+    <div class="toast" id="save-toast"><span class="toast__icon">✓</span><span>Alterações salvas!</span></div>
+
+    <!-- ============================================
+         SIDEBAR NAV (desktop fixed, mobile floating)
+         ============================================ -->
+    <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar__header">
+            <img src="logo nativa.jpg" alt="Nativa Digital" class="sidebar__logo">
+            <span class="sidebar__brand">Nativa Digital</span>
+            <button class="sidebar__close" id="sidebar-close" aria-label="Fechar">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+
+        <ul class="sidebar__menu" id="sidebar-menu">
+            <li><a href="#hero" class="sidebar__link active" data-target="hero">
+                <span class="sidebar__dot"></span>Início
+            </a></li>
+            <li><a href="#secao-1" class="sidebar__link" data-target="secao-1">
+                <span class="sidebar__num">1</span>Acesso BM
+            </a></li>
+            <li><a href="#secao-2" class="sidebar__link" data-target="secao-2">
+                <span class="sidebar__num">2</span>Configurações
+            </a></li>
+            <li><a href="#secao-3" class="sidebar__link" data-target="secao-3">
+                <span class="sidebar__num">3</span>Parceiros
+            </a></li>
+            <li><a href="#secao-4" class="sidebar__link" data-target="secao-4">
+                <span class="sidebar__num">4</span>Permissões
+            </a></li>
+            <li><a href="#secao-5" class="sidebar__link" data-target="secao-5">
+                <span class="sidebar__num">5</span>Verificação
+            </a></li>
+            <li><a href="#secao-6" class="sidebar__link" data-target="secao-6">
+                <span class="sidebar__num">6</span>Atribuir
+            </a></li>
+            <li><a href="#secao-7" class="sidebar__link" data-target="secao-7">
+                <span class="sidebar__num">7</span>Checklist
+            </a></li>
+        </ul>
+
+        <div class="sidebar__progress">
+            <div class="sidebar__progress-bar" id="nav-progress"></div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         FLOATING CHECKLIST
+         ============================================ -->
+    <div class="checklist" id="checklist">
+        <button class="checklist__toggle" id="checklist-toggle" aria-label="Checklist">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            <span class="checklist__badge" id="checklist-badge">0/7</span>
+        </button>
+        <div class="checklist__panel" id="checklist-panel">
+            <div class="checklist__panel-header">
+                <h3>Progresso</h3>
+                <div class="checklist__panel-bar">
+                    <div class="checklist__panel-fill" id="checklist-fill"></div>
+                </div>
+                <span class="checklist__panel-pct" id="checklist-pct">0%</span>
+            </div>
+            <ul class="checklist__items" id="checklist-items">
+                <li class="checklist__item" data-check="1">
+                    <button class="checklist__check" aria-label="Marcar etapa 1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button>
+                    <span>Acesso ao Meta Business</span>
+                </li>
+                <li class="checklist__item" data-check="2">
+                    <button class="checklist__check" aria-label="Marcar etapa 2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button>
+                    <span>Configurações da BM</span>
+                </li>
+                <li class="checklist__item" data-check="3">
+                    <button class="checklist__check" aria-label="Marcar etapa 3"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button>
+                    <span>Adicionar código BM</span>
+                </li>
+                <li class="checklist__item" data-check="4">
+                    <button class="checklist__check" aria-label="Marcar etapa 4"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button>
+                    <span>Controle Total</span>
+                </li>
+                <li class="checklist__item" data-check="5">
+                    <button class="checklist__check" aria-label="Marcar etapa 5"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button>
+                    <span>Verificar acesso</span>
+                </li>
+                <li class="checklist__item" data-check="6">
+                    <button class="checklist__check" aria-label="Marcar etapa 6"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button>
+                    <span>Atribuir Ativos</span>
+                </li>
+                <li class="checklist__item" data-check="7">
+                    <button class="checklist__check" aria-label="Marcar etapa 7"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></button>
+                    <span>Verificar pessoas</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ============================================
+         MAIN CONTENT
+         ============================================ -->
+    <main class="main" id="main">
+
+        <!-- Hero -->
+        <header class="hero" id="hero">
+            <div class="hero__logo-wrap">
+                <img src="logo nativa.jpg" alt="Nativa Digital" class="hero__logo-img">
+            </div>
+            <div class="hero__badge"><span class="hero__badge-dot"></span>Nativa Digital — Processo Interno</div>
+            <h1 class="hero__title">
+                <span class="hero__title-line">Processo Integração</span>
+                <span class="hero__title-line hero__title-gradient">Facebook Ads</span>
+            </h1>
+            <p class="hero__subtitle">Integração de acesso da BM do cliente para a nossa BM.</p>
+            <div class="hero__info-cards">
+                <div class="info-chip">
+                    <span class="info-chip__icon">👤</span>
+                    <div class="info-chip__content"><small>Responsável</small><strong contenteditable="true" data-key="responsavel">Angela De Luca</strong></div>
+                </div>
+                <div class="info-chip info-chip--id">
+                    <span class="info-chip__icon">🆔</span>
+                    <div class="info-chip__content"><small>ID Portfólio Empresarial</small><strong contenteditable="true" data-key="portfolio-id">885069405196869</strong></div>
+                    <button class="copy-btn" id="copy-id-btn" title="Copiar ID">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        <span class="copy-btn__label">Copiar</span>
+                    </button>
+                </div>
+            </div>
+            <div class="hero__scroll-indicator"><div class="hero__scroll-mouse"><div class="hero__scroll-wheel"></div></div><span>Role para explorar</span></div>
+        </header>
+
+        <!-- SEÇÃO 1 -->
+        <section class="process-section" id="secao-1" data-step="1">
+            <div class="container">
+                <div class="process-section__header">
+                    <div class="process-section__number"><span>1</span></div>
+                    <div><span class="process-section__tag">Etapa Inicial</span><h2 class="process-section__title" contenteditable="true" data-key="s1-title">Acesso ao Meta Business Manager</h2></div>
+                </div>
+                <div class="process-section__body">
+                    <div class="process-card" data-anim="slide-right">
+                        <div class="process-card__icon">🌐</div>
+                        <div class="process-card__content">
+                            <p contenteditable="true" data-key="s1-desc">Pedir ao cliente que acesse o <strong>Meta Business Manager</strong>:</p>
+                            <a href="https://business.facebook.com" target="_blank" class="process-link"><span>https://business.facebook.com</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                        </div>
+                    </div>
+                    <div class="process-card process-card--note" data-anim="slide-right" data-delay="100">
+                        <div class="process-card__icon">💡</div>
+                        <div class="process-card__content"><p contenteditable="true" data-key="s1-note">Se o cliente não tiver, <strong>criar uma BM na conta do cliente</strong>.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 2 -->
+        <section class="process-section" id="secao-2" data-step="2">
+            <div class="container">
+                <div class="process-section__header">
+                    <div class="process-section__number"><span>2</span></div>
+                    <div><span class="process-section__tag">Configurações</span><h2 class="process-section__title" contenteditable="true" data-key="s2-title">Entrar na BM e ir em Configurações</h2></div>
+                </div>
+                <div class="process-section__body">
+                    <div class="process-card" data-anim="slide-right">
+                        <div class="process-card__icon">🔄</div>
+                        <div class="process-card__content"><p contenteditable="true" data-key="s2-desc-1">No menu suspenso do canto superior esquerdo do Meta Business Suite, <strong>selecionar a conta (Portfólio Empresarial)</strong> que está vinculada.</p></div>
+                    </div>
+                    <div class="process-card" data-anim="slide-right" data-delay="100">
+                        <div class="process-card__icon">⚙️</div>
+                        <div class="process-card__content"><p contenteditable="true" data-key="s2-desc-2">Ao lado do nome do portfólio selecionado ou no menu lateral esquerdo, clique no ícone de engrenagem (<strong>Configurações</strong>) para entrar nas configurações do portfólio empresarial.</p></div>
+                    </div>
+                    <div class="process-visual" data-anim="scale-in" data-delay="150">
+                        <div class="process-visual__steps">
+                            <div class="visual-step"><div class="visual-step__icon">🏢</div><span contenteditable="true" data-key="s2-v1">Selecionar Conta Vinculada</span></div>
+                            <div class="visual-step__arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                            <div class="visual-step"><div class="visual-step__icon">⚙️</div><span contenteditable="true" data-key="s2-v2">Configurações do Portfólio</span></div>
+                            <div class="visual-step__arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                            <div class="visual-step"><div class="visual-step__icon">🤝</div><span contenteditable="true" data-key="s2-v3">Parceiros</span></div>
+                        </div>
+                    </div>
+                    <div class="process-image" data-anim="scale-in" data-delay="200">
+                        <img src="meta-business-suite.png" alt="Meta Business Suite — Selecionar Conta e Configurações" class="process-screenshot">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 3 -->
+        <section class="process-section" id="secao-3" data-step="3">
+            <div class="container">
+                <div class="process-section__header">
+                    <div class="process-section__number"><span>3</span></div>
+                    <div><span class="process-section__tag">Parceiros</span><h2 class="process-section__title" contenteditable="true" data-key="s3-title">Adicionar o código da nossa BM</h2></div>
+                </div>
+                <div class="process-section__body">
+                    <div class="process-card" data-anim="slide-right">
+                        <div class="process-card__icon">🔗</div>
+                        <div class="process-card__content"><p contenteditable="true" data-key="s3-desc">Ir em <strong>Parceiros</strong> e adicionar o código da BM da <strong>Angela (Nativa Digital)</strong>:</p></div>
+                    </div>
+                    <div class="id-display" data-anim="scale-in" data-delay="100">
+                        <div class="id-display__header"><img src="logo nativa.jpg" alt="Nativa" class="id-display__logo"><div class="id-display__label" contenteditable="true" data-key="s3-bm-label">BM Angela — Nativa Digital</div></div>
+                        <div class="id-display__value">
+                            <span contenteditable="true" data-key="s3-bm-id">885069405196869</span>
+                            <button class="copy-btn copy-btn--inline" data-copy-target="s3-bm-id" title="Copiar ID"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span class="copy-btn__label">Copiar</span></button>
+                        </div>
+                    </div>
+                    <div class="process-card process-card--note" data-anim="slide-right" data-delay="200">
+                        <div class="process-card__icon">📌</div>
+                        <div class="process-card__content"><p contenteditable="true" data-key="s3-note">Clicar em <strong>"Conceder a um parceiro acesso aos seus recursos"</strong> → Adicionar um parceiro e atribuir os ativos da sua empresa a ele.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 4 -->
+        <section class="process-section" id="secao-4" data-step="4">
+            <div class="container">
+                <div class="process-section__header">
+                    <div class="process-section__number"><span>4</span></div>
+                    <div><span class="process-section__tag">Permissões</span><h2 class="process-section__title" contenteditable="true" data-key="s4-title">Dar os acessos — CONTROLE TOTAL</h2></div>
+                </div>
+                <div class="process-section__body">
+                    <div class="process-card" data-anim="slide-right">
+                        <div class="process-card__icon">🔓</div>
+                        <div class="process-card__content"><p contenteditable="true" data-key="s4-desc">Conceder acesso de <strong>CONTROLE TOTAL</strong> para os seguintes ativos:</p></div>
+                    </div>
+                    <div class="access-grid">
+                        <div class="access-item" data-anim="pop-in" data-delay="0"><div class="access-item__icon">📄</div><div class="access-item__label" contenteditable="true" data-key="s4-a1">Página</div><div class="access-item__badge">Controle Total</div></div>
+                        <div class="access-item" data-anim="pop-in" data-delay="120"><div class="access-item__icon">📢</div><div class="access-item__label" contenteditable="true" data-key="s4-a2">Conta de Anúncio</div><div class="access-item__badge">Controle Total</div></div>
+                        <div class="access-item" data-anim="pop-in" data-delay="240"><div class="access-item__icon">📸</div><div class="access-item__label" contenteditable="true" data-key="s4-a3">Instagram</div><div class="access-item__badge">Controle Total</div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 5 -->
+        <section class="process-section" id="secao-5" data-step="5">
+            <div class="container">
+                <div class="process-section__header">
+                    <div class="process-section__number"><span>5</span></div>
+                    <div><span class="process-section__tag">Verificação</span><h2 class="process-section__title" contenteditable="true" data-key="s5-title">Verificar acesso na BM da Angela</h2></div>
+                </div>
+                <div class="process-section__body">
+                    <div class="process-card" data-anim="slide-right">
+                        <div class="process-card__icon">✅</div>
+                        <div class="process-card__content"><p contenteditable="true" data-key="s5-desc">Após conceder os acessos, ir na <strong>BM da Angela (Nativa Digital)</strong> e <strong>verificar se o acesso foi concedido corretamente</strong>.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 6 -->
+        <section class="process-section" id="secao-6" data-step="6">
+            <div class="container">
+                <div class="process-section__header">
+                    <div class="process-section__number"><span>6</span></div>
+                    <div><span class="process-section__tag">Atribuição</span><h2 class="process-section__title" contenteditable="true" data-key="s6-title">Atribuir Ativos às Pessoas</h2></div>
+                </div>
+                <div class="process-section__body">
+                    <div class="process-card" data-anim="slide-right">
+                        <div class="process-card__icon">👥</div>
+                        <div class="process-card__content"><p contenteditable="true" data-key="s6-desc">Na BM da <strong>Angela (Nativa Digital)</strong>, ir em <strong>PESSOAS</strong>, clicar em cima das pessoas que vão estar envolvidas no projeto, e clicar em <strong>"Atribuir Ativos"</strong>.</p></div>
+                    </div>
+                    <div class="process-card" data-anim="slide-right" data-delay="100">
+                        <div class="process-card__icon">🖱️</div>
+                        <div class="process-card__content"><p contenteditable="true" data-key="s6-action">Clicar no <strong>cliente novo</strong> e <strong>liberar os acessos</strong>.</p></div>
+                    </div>
+                    <div class="process-visual" data-anim="scale-in" data-delay="200">
+                        <div class="process-visual__steps">
+                            <div class="visual-step"><div class="visual-step__icon">👥</div><span contenteditable="true" data-key="s6-v1">Pessoas</span></div>
+                            <div class="visual-step__arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                            <div class="visual-step"><div class="visual-step__icon">👤</div><span contenteditable="true" data-key="s6-v2">Selecionar Pessoa</span></div>
+                            <div class="visual-step__arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                            <div class="visual-step"><div class="visual-step__icon">📎</div><span contenteditable="true" data-key="s6-v3">Atribuir Ativos</span></div>
+                            <div class="visual-step__arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                            <div class="visual-step"><div class="visual-step__icon">🔓</div><span contenteditable="true" data-key="s6-v4">Liberar Acessos</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 7 -->
+        <section class="process-section" id="secao-7" data-step="7">
+            <div class="container">
+                <div class="process-section__header">
+                    <div class="process-section__number"><span>7</span></div>
+                    <div><span class="process-section__tag">Checklist Final</span><h2 class="process-section__title" contenteditable="true" data-key="s7-title">Verificar Pessoas com Acesso</h2></div>
+                </div>
+                <div class="process-section__body">
+                    <div class="process-card" data-anim="slide-right">
+                        <div class="process-card__icon">🔍</div>
+                        <div class="process-card__content"><p contenteditable="true" data-key="s7-desc">Após tudo configurado, verificar se as <strong>pessoas envolvidas</strong> estão com acesso:</p></div>
+                    </div>
+                    <div class="people-checklist">
+                        <div class="people-item" data-anim="slide-right" data-delay="0"><div class="people-item__avatar">🎯</div><div class="people-item__info"><span class="people-item__role" contenteditable="true" data-key="s7-p1-role">Gestor de Tráfego</span></div><div class="people-item__status"><span class="status-dot status-dot--check"></span>Verificar</div></div>
+                        <div class="people-item" data-anim="slide-right" data-delay="100"><div class="people-item__avatar">👑</div><div class="people-item__info"><span class="people-item__role" contenteditable="true" data-key="s7-p2-role">Head</span></div><div class="people-item__status"><span class="status-dot status-dot--check"></span>Verificar</div></div>
+                        <div class="people-item" data-anim="slide-right" data-delay="200"><div class="people-item__avatar">💼</div><div class="people-item__info"><span class="people-item__role" contenteditable="true" data-key="s7-p3-role">Fabio ou Gui</span></div><div class="people-item__status"><span class="status-dot status-dot--check"></span>Verificar</div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Save bar -->
+        <div class="save-bar" id="save-bar">
+            <div class="save-bar__inner">
+                <span class="save-bar__text">Alterações não salvas</span>
+                <div class="save-bar__actions">
+                    <button class="save-bar__btn save-bar__btn--discard" id="btn-discard">Descartar</button>
+                    <button class="save-bar__btn save-bar__btn--save" id="btn-save">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                        Salvar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer__content">
+                    <img src="logo nativa.jpg" alt="Nativa Digital" class="footer__logo-img">
+                    <p class="footer__text">Processo de Integração Meta Ads — Documentação Interna</p>
+                    <div class="footer__meta"><span>Última atualização: Junho 2026</span><span class="footer__divider">·</span><span>v2.0</span></div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
